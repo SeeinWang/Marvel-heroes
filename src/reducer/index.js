@@ -1,9 +1,28 @@
+import * as ActionTypes from '../action/type';
+
 const initialState = {
-   entered:false
+   username:'',
+   type:'',
+   results:[]
 }
 
 function reducer(state=initialState, action){
-    return state;
+    switch(action.type){
+        case ActionTypes.GET_HEROES: {
+            const { values, results } = action;
+            const {username, type} = values;
+        
+            return {
+                ...state,
+                username,
+                type,
+                results
+            }
+        }
+        default:{
+            return state;
+        }
+    }
 }
 
 export default reducer;
