@@ -12,7 +12,7 @@ Click start to button to start
 Enter in your name and choice, then click submit.It will redirect to result page.
 ![image](https://github.com/SeeinWang/Marvel-heroes/blob/main/public/image/page2.jpeg)
 
--step 3:
+- step 3:
 Get results
 ![image](https://github.com/SeeinWang/Marvel-heroes/blob/main/public/image/page3.jpeg)
 
