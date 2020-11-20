@@ -309,6 +309,7 @@ const Detail = styled.div`
 color: rgba(0, 0, 0, 0.45);
 cursor: pointer;
 font-size:12px;
+text-decoration: underline;
 :hover {
     color: #1890FF;
 }
