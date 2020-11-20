@@ -3,7 +3,8 @@ import * as ActionTypes from '../action/type';
 const initialState = {
    username:'',
    type:'',
-   results:[]
+   results:[],
+   defaultSortMethod:''
 }
 
 function reducer(state=initialState, action){
@@ -11,12 +12,20 @@ function reducer(state=initialState, action){
         case ActionTypes.GET_HEROES: {
             const { values, results } = action;
             const {username, type} = values;
-        
+            let defaultSortMethod = '';
+            if(type === 'comics'){
+                defaultSortMethod = 'comicsDescend';
+            }else if(type === 'series'){
+                defaultSortMethod = 'seriesDescend';
+            } else {
+                defaultSortMethod = 'storiesDescend';
+            }
             return {
                 ...state,
                 username,
                 type,
-                results
+                results,
+                defaultSortMethod
             }
         }
         default:{

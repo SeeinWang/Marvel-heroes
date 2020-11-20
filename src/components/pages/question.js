@@ -37,7 +37,7 @@ class Question extends Component{
             <Container>
                 <Header />
                 <Content>
-                <Breadcrumb>
+                <Breadcrumb separator=">">
                     <Breadcrumb.Item><a href="/">Start</a></Breadcrumb.Item>
                     <Breadcrumb.Item>
                         Complete Form
@@ -69,6 +69,12 @@ class Question extends Component{
                     <Form.Item
                         name="type"
                         label="What do you more: comics, series or stories"
+                        rules={[
+                            {
+                                required: true,
+                                message:'Please choose one option'
+                            },
+                            ]}
                     >
                         <Select placeholder="Please select one">
                         <Option value="comics">Comics</Option>
@@ -97,11 +103,11 @@ background-color:white;
 `;
 
 const Content = styled.div`
-margin:5em 20%;
+margin:5em 15%;
 `;
 
 const FormContainer = styled.div`
-margin:5em auto;
+margin:3em auto;
 padding:10% 20%;
 border-radius: 0.28571429rem;
 border: 1px solid rgba(34, 36, 38, 0.15);
