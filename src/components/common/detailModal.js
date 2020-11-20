@@ -5,7 +5,11 @@ const DetailModal = ({items, visible, handleClose}) => {
     const data = [];
     if(items !== undefined && items.length > 0){
         for(let i=0; i<items.length; i++){
-            data.push(items[i].name);
+            const item = {
+                name:items[i].name,
+                id:i,
+            }
+            data.push(item);
         }
     }
     return (
@@ -13,7 +17,7 @@ const DetailModal = ({items, visible, handleClose}) => {
           title="List of items' name in this collection"
           visible={visible}
           onCancel={handleClose}
-          footer={[<Button type='primary' onClick={handleClose}>Close</Button>]}
+          footer={[<Button type='primary' key={1} onClick={handleClose}>Close</Button>]}
         >
            <List
             size="small"
@@ -22,7 +26,7 @@ const DetailModal = ({items, visible, handleClose}) => {
             }}
             bordered
             dataSource={data}
-            renderItem={item => <List.Item>{item}</List.Item>}
+            renderItem={item => <List.Item key={items.id}>{item.name}</List.Item>}
     />
     </Modal>
     )
