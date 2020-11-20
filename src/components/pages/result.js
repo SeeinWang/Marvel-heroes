@@ -6,7 +6,8 @@ import styled from 'styled-components';
 import { Breadcrumb, Table, Select} from 'antd';
 import {ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 import moment from 'moment';
-import Header from '../header';
+import Header from '../common/header';
+import DetailModal from '../common/detailModal';
 
 
 const { Column } = Table;
@@ -14,8 +15,9 @@ const { Option } = Select;
 
 class Result extends Component{
     state = {
-        modelOpen:false,
-        method:''
+        method:'',
+        modalOpen:false,
+        items:[]
     }
 
     sortHeroes = (results) => {
@@ -148,9 +150,23 @@ class Result extends Component{
         })
     }
 
+    openDetailModal = (items) => {
+        this.setState({
+            items
+        }, this.setState({
+            modalOpen:true
+        }))
+    }
+    closeModal = () => {
+        this.setState({
+            modalOpen:false
+        })
+    }
+
     
     render(){
         const {results, username, type, defaultSortMethod } = this.props;
+        const {items, modalOpen} = this.state;
         const heroSource = [];
         if(results !== null && results.length > 0) {
             for(let i=0; i< results.length; i++){
@@ -192,10 +208,11 @@ class Result extends Component{
                 </Breadcrumb>
                 <FilterContainer>
                     <Title>
-                        Your Name: <Name>{username}</Name>,
-                        Your Favorite: <Name>{type}</Name>
+                        Your Name: <Text>{username}</Text>
+                        Your Favorite: <Text>{type}</Text>
                     </Title>
                     <Filter>
+                        <Text>Sort by:</Text>
                         <Select defaultValue={defaultSortMethod} style={{ width: 280 }} onChange={this.handleChange}>
                             <Option value="comicsAscend"><ArrowUpOutlined /> Available Comics: less to more</Option>
                             <Option value="comicsDescend"><ArrowDownOutlined /> Available Comics: more to less</Option>
@@ -221,11 +238,39 @@ class Result extends Component{
                 }
                 />
                 <Column title="Last Modified Date" dataIndex="modified" key="modified" />
-                <Column title="Available Comics" dataIndex="availableComics" key="availableComics" />
-                <Column title="Available Series" dataIndex="availableSeries" key="availableSeries" />
-                <Column title="Available Stories" dataIndex="availableStories" key="availableStories" />
+                <Column title="Available Comics" key="availableComics" 
+                    render={
+                        (record) => {
+                            const {comics} = record;
+                            return <Record>
+                                        <RecordContent>{record.availableComics}</RecordContent> 
+                                        <Detail onClick={()=>this.openDetailModal(comics.items)}>More Details</Detail>
+                                </Record>
+                        }
+                    }/>
+                <Column title="Available Series" key="availableSeries" 
+                    render={
+                        (record) => {
+                            const {series} = record;
+                            return <Record>
+                                        <RecordContent>{record.availableSeries}</RecordContent> 
+                                        <Detail onClick={()=>this.openDetailModal(series.items)}>More Details</Detail>
+                                </Record>
+                        }
+                    }/>
+                <Column title="Available Stories" key="availableStories" 
+                    render={
+                        (record) => {
+                            const {stories} = record;
+                            return <Record>
+                                        <RecordContent>{record.availableStories}</RecordContent> 
+                                        <Detail onClick={()=>this.openDetailModal(stories.items)}>More Details</Detail>
+                                </Record>
+                        }
+                    }/>
                </Table>
                 </Content>
+                <DetailModal items={items} visible={modalOpen} handleClose={this.closeModal}/>
             </Container>
         )
     }
@@ -253,11 +298,30 @@ line-height:32px;
 height:32px;
 `;
 
-const Name = styled.span`
+const Text = styled.span`
 color:rgba(0, 0, 0, 0.45);
+margin-right:1em;
 `;
 
 const Filter = styled.div``;
+
+const Detail = styled.div`
+color: rgba(0, 0, 0, 0.45);
+cursor: pointer;
+font-size:12px;
+:hover {
+    color: #1890FF;
+}
+`;
+
+const Record = styled.div`
+display:flex;
+flex-direction:column;
+`;
+
+const RecordContent = styled.div`
+margin-bottom:0.5em;
+`;
 
 const mapStateToProps = ({username,type,results, defaultSortMethod}) => ({username, type, results, defaultSortMethod});
 

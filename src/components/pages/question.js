@@ -5,7 +5,7 @@ import { compose } from 'recompose';
 import styled from 'styled-components';
 import { Form, Input, Button, Select, Breadcrumb } from 'antd';
 import { getHeroes } from '../../action/index';
-import Header from '../header';
+import Header from '../common/header';
 
 const { Option } = Select;
 
