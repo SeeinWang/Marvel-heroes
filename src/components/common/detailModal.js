@@ -10,7 +10,7 @@ const DetailModal = ({items, visible, handleClose}) => {
     }
     return (
     <Modal
-          title="Summary"
+          title="List of items' name in this collection"
           visible={visible}
           onCancel={handleClose}
           footer={[<Button type='primary' onClick={handleClose}>Close</Button>]}
