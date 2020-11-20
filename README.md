@@ -13,7 +13,8 @@ Enter in your name and choice, then click submit.It will redirect to result page
 ![image](https://github.com/SeeinWang/Marvel-heroes/blob/main/public/image/page2.jpeg)
 
 - step 3:
-Get results
+Get results.
+If click on the More Details, it will pop up a modal to list the summary.
 ![image](https://github.com/SeeinWang/Marvel-heroes/blob/main/public/image/page3.jpeg)
 
 
